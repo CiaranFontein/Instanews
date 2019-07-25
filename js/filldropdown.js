@@ -55,42 +55,22 @@ $(document).ready(function() {
         for (var i = 0; i < results.length; i++) {
           article = results[i];
           $(".content-grid").append(
-            //'<a href="' +
-            article.url +
+            '<a href="' +
+              article.url +
               '"><div class="content-cell" id="content-cell-' +
               i +
               '"><div class="text-box">' +
               article.abstract +
-              "</div></div>"
-            //</a>"
+              "</div></div></a>"
           );
 
           //Make changes to specific grid cell
-
           if (article.multimedia.length > 4) {
             $("#content-cell-" + i).css(
               "background-image",
               'url("' + article.multimedia[4].url
             );
           }
-          $("#content-cell-" + i).on("click", function() {
-            readOutLoud(article.abstract);
-          });
-          unirest
-            .get(
-              "https://microsoft-azure-translation-v1.p.rapidapi.com/Speak?text=Hello%2C+world!&language=en"
-            )
-            .header(
-              "X-RapidAPI-Host",
-              "microsoft-azure-translation-v1.p.rapidapi.com"
-            )
-            .header(
-              "X-RapidAPI-Key",
-              "d42864f054msh6fdf3d04acfdf39p1bbdd3jsnef6c6dfd558e"
-            )
-            .end(function(result) {
-              console.log(result.status, result.headers, result.body);
-            });
         }
         $(".content-cell").css({
           "background-size": "cover",
@@ -108,14 +88,7 @@ $(document).ready(function() {
       .always();
   }
 
-  function readOutLoud(readThisString) {
-    let ttsURL =
-      "https://microsoft-azure-translation-v1.p.rapidapi.com/Speak?text=" +
-      readThisString +
-      "&language=en";
-    $.ajax({
-      method: "get",
-      url: ttsURL
-    });
+  function readOutLoud() {
+    let ttsURL = "https://microsoft-azure-translation-v1.p.rapidapi.com/Speak";
   }
 });
