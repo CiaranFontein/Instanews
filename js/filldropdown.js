@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  let sectionTitle = "null";
+  let sectionTitle = "science";
   let results = [];
   let sections = [
     "arts",
@@ -55,9 +55,7 @@ $(document).ready(function() {
         for (var i = 0; i < results.length; i++) {
           article = results[i];
           $(".content-grid").append(
-            '<a href="' +
-              article.url +
-              '"><div class="content-cell" id="content-cell-' +
+            '<a href="'+ article.url +''"><div class="content-cell" id="content-cell-' +
               i +
               '"><div class="text-box">' +
               article.abstract +
@@ -70,6 +68,7 @@ $(document).ready(function() {
               "background-image",
               'url("' + article.multimedia[4].url
             );
+            $("#content-cell-" + i).html(article.url);
           }
         }
         $(".content-cell").css({
@@ -86,9 +85,5 @@ $(document).ready(function() {
         console.log("fail");
       })
       .always();
-  }
-
-  function readOutLoud() {
-    let ttsURL = "https://microsoft-azure-translation-v1.p.rapidapi.com/Speak";
   }
 });
