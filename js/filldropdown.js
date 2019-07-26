@@ -56,13 +56,9 @@ $(function() {
     { name: "Japanese", code: "ja-JP" },
     { name: "Egyptian", code: "ar-EG" },
     { name: "Irish", code: "en-IE" },
-    { name: "Jamaican", code: "en-JM" },
-    { name: "Tagalog", code: "en-PH" },
-    { name: "New Zealand", code: "en-NZ" },
     { name: "Hindi", code: "hi-IN" },
     { name: "Korean", code: "ko-KR" },
     { name: "Chinese", code: "zh-TW" },
-    { name: "Vietnamese", code: "vi-VN" },
     { name: "Portuguese", code: "pt-BR" }
   ];
 
@@ -81,8 +77,6 @@ $(function() {
         console.log(language);
       }
     }
-    //language = "ja-JP";
-    //speek("Me! Nooo. I did not say cool your jets!");
   });
 
   //Get articles url from API and start loading them
@@ -108,7 +102,9 @@ $(function() {
         results = data.results;
         for (var i = 0; i < results.length; i++) {
           let article = results[i];
-          if (article.multimedia.length > 4) {
+          numberOfArticles = 0;
+          if (article.multimedia.length > 4 && numberOfArticles < 12) {
+            numberOfArticles++;
             $(".content-grid").append(
               '<a href="' +
                 article.url +

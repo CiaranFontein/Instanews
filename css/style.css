@@ -42,3 +42,9 @@ a {
     grid-template-columns: auto auto auto;
   }
 }
+
+@mixin desktop {
+  @media (min-width: $desktop-width) {
+    @content;
+  }
+}
