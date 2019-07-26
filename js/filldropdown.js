@@ -1,6 +1,8 @@
-$(document).ready(function() {
-  let sectionTitle = "science";
+$(function() {
+  let numberOfArticles = 0;
+  let sectionTitle = "null";
   let results = [];
+
   let sections = [
     "arts",
     "automobiles",
@@ -34,7 +36,41 @@ $(document).ready(function() {
     $(".dropdown").append("<option>" + sections[i] + "</option>");
   }
 
+  //Create object for each language
+  const languagesMap = [
+    { name: "English", code: "en-US" },
+    { name: "Japanese", code: "ja-JP" },
+    { name: "Egyptian", code: "ar-EG" },
+    { name: "Irish", code: "en-IE" },
+    { name: "Jamaican", code: "en-JM" },
+    { name: "Tagalog", code: "en-PH" },
+    { name: "New Zealand", code: "en-NZ" },
+    { name: "Hindi", code: "hi-IN" },
+    { name: "Korean", code: "ko-KR" },
+    { name: "Chinese", code: "zh-TW" },
+    { name: "Vietnamese", code: "vi-VN" },
+    { name: "Portuguese", code: "pt-BR" }
+  ];
+
+  //Set dropdown options to have the name of each language
+  for (var i = 0; i < languagesMap.length; i++) {
+    $(".language-dropdown").append(
+      "<option>" + languagesMap[i].name + "</option>"
+    );
+  }
+
+  //Check language names for a match to set code
+  $(".language-dropdown").on("change", function() {
+    for (var i = 0; i < languagesMap.length; i++) {
+      if (languagesMap[i].name === $(this).val()) {
+        language = languagesMap[i].code;
+      }
+    }
+  });
+
+  //Get articles url from API and start loading them
   $(".dropdown").on("change", function() {
+    $(".loading").show();
     const selected = $(this).val();
     sectionTitle = selected;
     let sectionURL =
@@ -44,6 +80,8 @@ $(document).ready(function() {
     loadArticles(sectionURL);
   });
 
+  //Create grid-cells to hold articles, then format them with .css
+  //Grid cells are given IDs and then the IDs are used to load images
   function loadArticles(sectionURL) {
     $.ajax({
       method: "get",
@@ -51,39 +89,56 @@ $(document).ready(function() {
     })
       .done(function(data) {
         results = data.results;
-
         for (var i = 0; i < results.length; i++) {
-          article = results[i];
-          $(".content-grid").append(
-            '<a href="'+ article.url +''"><div class="content-cell" id="content-cell-' +
-              i +
-              '"><div class="text-box">' +
-              article.abstract +
-              "</div></div></a>"
-          );
-
-          //Make changes to specific grid cell
+          let article = results[i];
           if (article.multimedia.length > 4) {
+            $(".content-grid").append(
+              '<a href="' +
+                article.url +
+                '"><div class="content-cell" id="content-cell-' +
+                i +
+                '"><div class="text-box">' +
+                article.abstract +
+                "</div></div></a>"
+            );
+
+            //Make css changes to specific grid cell (image)
             $("#content-cell-" + i).css(
               "background-image",
               'url("' + article.multimedia[4].url
             );
-            $("#content-cell-" + i).html(article.url);
+            $("#content-cell-" + i).hover(function() {
+              speek(article.abstract);
+            });
           }
         }
         $(".content-cell").css({
           "background-size": "cover",
           height: "300px",
-          "vertical-align": "bottom",
           display: "flex",
-          "align-items": "flex-end",
-          "justify-content": "flex-end"
+          "align-items": "flex-end"
         });
-        console.log(results);
       })
       .fail(function() {
         console.log("fail");
       })
-      .always();
+      .always(function() {
+        $(".loading").hide();
+      });
+  }
+
+  const msg = new SpeechSynthesisUtterance();
+  const voices = window.speechSynthesis.getVoices();
+  let language = "en-US";
+
+  function speek(message) {
+    msg.voice = voices[10];
+    msg.voiceURI = "native";
+    msg.volume = 0.5; // 0 to 1
+    msg.rate = 1; // 0.1 to 10
+    msg.pitch = 1.6; //0 to 2
+    msg.lang = language;
+    msg.text = message;
+    window.speechSynthesis.speak(msg);
   }
 });
