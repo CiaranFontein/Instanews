@@ -3,6 +3,20 @@ $(function() {
   let sectionTitle = "null";
   let results = [];
 
+  const sectionsMap = [
+    { name: "English", code: "en-US" },
+    { name: "Japanese", code: "ja-JP" },
+    { name: "Egyptian", code: "ar-EG" },
+    { name: "Irish", code: "en-IE" },
+    { name: "Jamaican", code: "en-JM" },
+    { name: "Tagalog", code: "en-PH" },
+    { name: "New Zealand", code: "en-NZ" },
+    { name: "Hindi", code: "hi-IN" },
+    { name: "Korean", code: "ko-KR" },
+    { name: "Chinese", code: "zh-TW" },
+    { name: "Vietnamese", code: "vi-VN" },
+    { name: "Portuguese", code: "pt-BR" }
+  ];
   let sections = [
     "arts",
     "automobiles",
@@ -64,8 +78,11 @@ $(function() {
     for (var i = 0; i < languagesMap.length; i++) {
       if (languagesMap[i].name === $(this).val()) {
         language = languagesMap[i].code;
+        console.log(language);
       }
     }
+    //language = "ja-JP";
+    //speek("Me! Nooo. I did not say cool your jets!");
   });
 
   //Get articles url from API and start loading them
@@ -135,8 +152,8 @@ $(function() {
     msg.voice = voices[10];
     msg.voiceURI = "native";
     msg.volume = 0.5; // 0 to 1
-    msg.rate = 1; // 0.1 to 10
-    msg.pitch = 1.6; //0 to 2
+    msg.rate = 0.9; // 0.1 to 10
+    msg.pitch = 1.8; //0 to 2
     msg.lang = language;
     msg.text = message;
     window.speechSynthesis.speak(msg);

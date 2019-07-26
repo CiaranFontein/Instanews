@@ -4,9 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" type="text/css" href="./build/css/style.min.css" />
-    <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css" />
-
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/fonts/stylesheet.css" />
     <title>Instanews</title>
   </head>
   <body>
@@ -21,13 +20,19 @@
           <option>Sections...</option>
         </select>
       </div>
+      <div class="language-dropdown-div">
+        <label>Choose a voice language: </label>
+        <br />
+        <select class="language-dropdown"> </select>
+      </div>
     </div>
     <div class="content-grid"></div>
+    <div class="loading"><img src="/images/ajax-loader.gif" /></div>
     <footer>
       © Copyright 2016 INSTANEWS
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="./build/js/filldropdown.min.js"></script>
+    <script src="/js/filldropdown.js"></script>
   </body>
 </html>
