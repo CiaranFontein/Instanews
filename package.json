@@ -17,9 +17,8 @@
     "gulp-prettyerror": "^1.2.1",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-terser": "^1.2.0"
-  },
-  "dependencies": {
+    "gulp-terser": "^1.2.0",
     "normalize.css": "^8.0.1"
-  }
+  },
+  "dependencies": {}
 }
