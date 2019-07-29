@@ -1,53 +1,40 @@
 $(function() {
   let numberOfArticles = 0;
-  let sectionTitle = "null";
   let results = [];
+  const finalTextBoxOpacity = 1;
+  const fadeTime = 1;
 
-  const sectionsMap = [
-    { name: "English", code: "en-US" },
-    { name: "Japanese", code: "ja-JP" },
-    { name: "Egyptian", code: "ar-EG" },
-    { name: "Irish", code: "en-IE" },
-    { name: "Jamaican", code: "en-JM" },
-    { name: "Tagalog", code: "en-PH" },
-    { name: "New Zealand", code: "en-NZ" },
-    { name: "Hindi", code: "hi-IN" },
-    { name: "Korean", code: "ko-KR" },
-    { name: "Chinese", code: "zh-TW" },
-    { name: "Vietnamese", code: "vi-VN" },
-    { name: "Portuguese", code: "pt-BR" }
-  ];
   let sections = [
-    "arts",
-    "automobiles",
-    "books",
-    "business",
-    "fashion",
-    "food",
-    "health",
-    "home",
-    "insider",
-    "magazine",
-    "movies",
-    "national",
-    "nyregion",
-    "obituaries",
-    "opinion",
-    "politics",
-    "realestate",
-    "science",
-    "sports",
-    "sundayreview",
-    "technology",
-    "theater",
-    "tmagazine",
-    "travel",
-    "upshot",
-    "world"
+    { name: "Arts", code: "arts" },
+    { name: "Cars", code: "automobiles" },
+    { name: "Books", code: "books" },
+    { name: "Business", code: "business" },
+    { name: "Fashion", code: "fashion" },
+    { name: "Food", code: "food" },
+    { name: "Health", code: "health" },
+    { name: "Home", code: "home" },
+    { name: "Insider", code: "insider" },
+    { name: "Magazine", code: "magazine" },
+    { name: "Movies", code: "movies" },
+    { name: "National", code: "national" },
+    { name: "New York", code: "nyregion" },
+    { name: "Obituaries", code: "obituaries" },
+    { name: "Opinion", code: "opinion" },
+    { name: "Politics", code: "politics" },
+    { name: "Real Estate", code: "realestate" },
+    { name: "Science", code: "science" },
+    { name: "Sports", code: "sports" },
+    { name: "Sunday Review", code: "sundayreview" },
+    { name: "Technology", code: "technology" },
+    { name: "Theater", code: "theater" },
+    { name: "Magazine", code: "tmagazine" },
+    { name: "Travel", code: "travel" },
+    { name: "Upshot", code: "upshot" },
+    { name: "World", code: "world" }
   ];
 
   for (var i = 0; i < sections.length; i++) {
-    $(".dropdown").append("<option>" + sections[i] + "</option>");
+    $(".dropdown").append("<option>" + sections[i].name + "</option>");
   }
 
   //Create object for each language
@@ -74,7 +61,6 @@ $(function() {
     for (var i = 0; i < languagesMap.length; i++) {
       if (languagesMap[i].name === $(this).val()) {
         language = languagesMap[i].code;
-        console.log(language);
       }
     }
   });
@@ -82,11 +68,15 @@ $(function() {
   //Get articles url from API and start loading them
   $(".dropdown").on("change", function() {
     $(".loading").show();
-    const selected = $(this).val();
-    sectionTitle = selected;
+    let selected = $(this).val();
+    for (var i = 0; i < sections.length; i++) {
+      if (selected == sections[i].name) {
+        selected = sections[i].code;
+      }
+    }
     let sectionURL =
       "https://api.nytimes.com/svc/topstories/v2/" +
-      sectionTitle +
+      selected +
       ".json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p";
     loadArticles(sectionURL);
   });
@@ -99,27 +89,27 @@ $(function() {
       url: sectionURL
     })
       .done(function(data) {
+        console.log(data);
         results = data.results;
+        numberOfArticles = 0;
         for (var i = 0; i < results.length; i++) {
           let article = results[i];
-          numberOfArticles = 0;
-          if (article.multimedia.length > 4 && numberOfArticles < 12) {
+          if (article.multimedia[4] != undefined && numberOfArticles < 12) {
             numberOfArticles++;
             $(".content-grid").append(
-              '<a href="' +
+              `<a href="` +
                 article.url +
-                '"><div class="content-cell" id="content-cell-' +
+                `"><div class="content-cell" id="content-cell-` +
                 i +
-                '"><div class="text-box">' +
+                `"><div class="text-box">` +
                 article.abstract +
-                "</div></div></a>"
+                `</div></div></a>`
             );
 
             //Make css changes to specific grid cell (image)
-            $("#content-cell-" + i).css(
-              "background-image",
-              'url("' + article.multimedia[4].url
-            );
+            $("#content-cell-" + i).css({
+              background: "url(" + article.multimedia[4].url + ")"
+            });
             $("#content-cell-" + i).hover(function() {
               speek(article.abstract);
             });
@@ -128,8 +118,12 @@ $(function() {
         $(".content-cell").css({
           "background-size": "cover",
           height: "300px",
-          display: "flex",
+          display: "none",
           "align-items": "flex-end"
+        });
+        $(".content-cell").fadeIn(2000);
+        $(".content-cell").css({
+          display: "flex"
         });
       })
       .fail(function() {
