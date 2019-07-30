@@ -1,8 +1,6 @@
 $(function() {
   let numberOfArticles = 0;
   let results = [];
-  const finalTextBoxOpacity = 1;
-  const fadeTime = 1;
 
   let sections = [
     { name: "Arts", code: "arts" },
@@ -67,7 +65,9 @@ $(function() {
 
   //Get articles url from API and start loading them
   $(".dropdown").on("change", function() {
+    $(".content-grid").empty();
     $(".loading").show();
+    $(".dropdown-area").toggleClass("dropdown-area--active");
     let selected = $(this).val();
     for (var i = 0; i < sections.length; i++) {
       if (selected == sections[i].name) {
@@ -101,9 +101,9 @@ $(function() {
                 article.url +
                 `"><div class="content-cell" id="content-cell-` +
                 i +
-                `"><div class="text-box">` +
+                `"><div class="text-box"><p>` +
                 article.abstract +
-                `</div></div></a>`
+                `</p></div></div></a>`
             );
 
             //Make css changes to specific grid cell (image)
@@ -111,7 +111,7 @@ $(function() {
               background: "url(" + article.multimedia[4].url + ")"
             });
             $("#content-cell-" + i).hover(function() {
-              speek(article.abstract);
+              //speek(article.abstract);
             });
           }
         }

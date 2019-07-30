@@ -6,22 +6,30 @@ html {
   text-align: center;
 }
 
-.logo {
-  margin: 10%;
-}
-
 .loading {
   display: none;
 }
 
-.dropdown {
-  width: 120px;
-  height: 50px;
-  font-size: $fontSize;
+.dropdown-area {
+  transition: 1s all ease-in-out;
+  .logo {
+    margin: 4rem;
+    transition: 1s all ease-in-out;
+  }
+}
+&--active {
+  .logo {
+    color: black;
+    margin: 1rem;
+    transform: scale(0.2);
+  }
 }
 
-.dropdownArea {
-  height: 100%;
+.dropdowns {
+  margin: 10px;
+  width: 120px;
+  height: 30px;
+  font-size: $fontSize;
 }
 
 .content-grid {
@@ -29,13 +37,25 @@ html {
   grid-template-columns: auto;
   background-color: $background-color;
 }
-
+.content-cell {
+  transition: 0.1s all ease-in-out;
+  opacity: 1;
+  overflow: hidden;
+}
 .text-box {
   background: $textBackgroundTransparency;
   text-align: left;
   height: 35%;
   opacity: 0;
   transition: 1s all;
+  width: 100%;
+  p {
+    text-overflow: ellipsis;
+    /* Required for text-overflow to do anything */
+    white-space: wrap;
+    overflow: hidden;
+    margin: 10px;
+  }
 }
 
 a {
@@ -43,15 +63,23 @@ a {
   color: $textColor;
 }
 
-.content-cell:hover .text-box {
+.content-cell:hover {
+  transform: scale(1.04);
+  box-shadow: 0px 0px 40px black;
   opacity: 1;
-  display: flex;
+  border-radius: 10px;
+  .text-box {
+    opacity: 1;
+    display: flex;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 }
 
 /*Desktop Width*/
 @media screen and (min-width: 600px) {
   .content-grid {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
