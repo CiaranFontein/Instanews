@@ -67,7 +67,9 @@ $(function() {
   $(".dropdown").on("change", function() {
     $(".content-grid").empty();
     $(".loading").show();
-    $(".dropdown-area").toggleClass("dropdown-area--active");
+    $(".dropdown-area").addClass("dropdown-area--active");
+    $(".logo").addClass("logo--active");
+
     let selected = $(this).val();
     for (var i = 0; i < sections.length; i++) {
       if (selected == sections[i].name) {
@@ -121,7 +123,6 @@ $(function() {
           display: "none",
           "align-items": "flex-end"
         });
-        $(".content-cell").fadeIn(2000);
         $(".content-cell").css({
           display: "flex"
         });
