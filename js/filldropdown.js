@@ -110,9 +110,9 @@ $(function() {
 
             //Make css changes to specific grid cell (image)
             $(`#content-cell-{i}`).css({
-              background: `url({article.multimedia[4].url})`
+              background: `url(${article.multimedia[4].url})`
             });
-            $(`#content-cell-{i}`).hover(function() {
+            $(`#content-cell-${i}`).hover(function() {
               //speek(article.abstract);
             });
           }
