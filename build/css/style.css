@@ -51,7 +51,11 @@ html {
 .content-grid {
   display: grid;
   grid-template-columns: auto;
-  background-color: #000; }
+  background-color: #000;
+  position: absolute;
+  top: 369px; }
+  .content-grid--active {
+    top: 100px; }
 
 .content-cell {
   -webkit-transition: 0.1s all ease-in-out;

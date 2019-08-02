@@ -3,58 +3,58 @@ $(function() {
   let results = [];
 
   let sections = [
-    { name: "Arts", code: "arts" },
-    { name: "Cars", code: "automobiles" },
-    { name: "Books", code: "books" },
-    { name: "Business", code: "business" },
-    { name: "Fashion", code: "fashion" },
-    { name: "Food", code: "food" },
-    { name: "Health", code: "health" },
-    { name: "Home", code: "home" },
-    { name: "Insider", code: "insider" },
-    { name: "Magazine", code: "magazine" },
-    { name: "Movies", code: "movies" },
-    { name: "National", code: "national" },
-    { name: "New York", code: "nyregion" },
-    { name: "Obituaries", code: "obituaries" },
-    { name: "Opinion", code: "opinion" },
-    { name: "Politics", code: "politics" },
-    { name: "Real Estate", code: "realestate" },
-    { name: "Science", code: "science" },
-    { name: "Sports", code: "sports" },
-    { name: "Sunday Review", code: "sundayreview" },
-    { name: "Technology", code: "technology" },
-    { name: "Theater", code: "theater" },
-    { name: "Magazine", code: "tmagazine" },
-    { name: "Travel", code: "travel" },
-    { name: "Upshot", code: "upshot" },
-    { name: "World", code: "world" }
+    { name: 'Arts', code: 'arts' },
+    { name: 'Cars', code: 'automobiles' },
+    { name: 'Books', code: 'books' },
+    { name: 'Business', code: 'business' },
+    { name: 'Fashion', code: 'fashion' },
+    { name: 'Food', code: 'food' },
+    { name: 'Health', code: 'health' },
+    { name: 'Home', code: 'home' },
+    { name: 'Insider', code: 'insider' },
+    { name: 'Magazine', code: 'magazine' },
+    { name: 'Movies', code: 'movies' },
+    { name: 'National', code: 'national' },
+    { name: 'New York', code: 'nyregion' },
+    { name: 'Obituaries', code: 'obituaries' },
+    { name: 'Opinion', code: 'opinion' },
+    { name: 'Politics', code: 'politics' },
+    { name: 'Real Estate', code: 'realestate' },
+    { name: 'Science', code: 'science' },
+    { name: 'Sports', code: 'sports' },
+    { name: 'Sunday Review', code: 'sundayreview' },
+    { name: 'Technology', code: 'technology' },
+    { name: 'Theater', code: 'theater' },
+    { name: 'Magazine', code: 'tmagazine' },
+    { name: 'Travel', code: 'travel' },
+    { name: 'Upshot', code: 'upshot' },
+    { name: 'World', code: 'world' }
   ];
 
-  for (var i = 0; i < sections.length; i++) {
-    $(".dropdown").append(`<option>${sections[i].name}</option>`);
+  for (let i = 0; i < sections.length; i++) {
+    $('.dropdown').append(`<option>${sections[i].name}</option>`);
   }
 
   //Create object for each language
   const languagesMap = [
-    { name: "English", code: "en-US" },
-    { name: "Japanese", code: "ja-JP" },
-    { name: "Egyptian", code: "ar-EG" },
-    { name: "Irish", code: "en-IE" },
-    { name: "Hindi", code: "hi-IN" },
-    { name: "Korean", code: "ko-KR" },
-    { name: "Chinese", code: "zh-TW" },
-    { name: "Portuguese", code: "pt-BR" }
+    { name: 'English', code: 'en-US' },
+    { name: 'Japanese', code: 'ja-JP' },
+    { name: 'Egyptian', code: 'ar-EG' },
+    { name: 'Irish', code: 'en-IE' },
+    { name: 'Hindi', code: 'hi-IN' },
+    { name: 'Korean', code: 'ko-KR' },
+    { name: 'Chinese', code: 'zh-TW' },
+    { name: 'Portuguese', code: 'pt-BR' }
   ];
 
   //Set dropdown options to have the name of each language
-  for (var i = 0; i < languagesMap.length; i++) {
-    $(".language-dropdown").append(`<option>${languagesMap[i].name}</option>`);
+  for (let i = 0; i < languagesMap.length; i++) {
+    $('.language-dropdown').append(`<option>${languagesMap[i].name}</option>`);
   }
 
   //Check language names for a match to set code
-  $(".language-dropdown").on("change", function() {
-    for (var i = 0; i < languagesMap.length; i++) {
+  $('.language-dropdown').on('change', function() {
+    for (let i = 0; i < languagesMap.length; i++) {
       if (languagesMap[i].name === $(this).val()) {
         language = languagesMap[i].code;
       }
@@ -62,78 +62,79 @@ $(function() {
   });
 
   //Get articles url from API and start loading them
-  $(".dropdown").on("change", function() {
-    $(".content-grid").empty();
-    $(".loading").show();
-    $(".dropdown-area").addClass("dropdown-area--active");
-    $(".logo").addClass("logo--active");
+  $('.dropdown').on('change', function() {
+    $('.content-grid').empty();
+    $('.loading').show();
+    $('.dropdown-area').addClass('dropdown-area--active');
+    $('.logo').addClass('logo--active');
 
     let selected = $(this).val();
-    for (var i = 0; i < sections.length; i++) {
-      if (selected == sections[i].name) {
+    for (let i = 0; i < sections.length; i++) {
+      if (selected === sections[i].name) {
         selected = sections[i].code;
       }
     }
-    let sectionURL = `https://api.nytimes.com/svc/topstories/v2/"${selected}.json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p";
-    loadArticles(sectionURL)`;
+    loadArticles(
+      `https://api.nytimes.com/svc/topstories/v2/"${selected}.json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p`
+    );
   });
 
   //Create grid-cells to hold articles, then format them with .css
   //Grid cells are given IDs and then the IDs are used to load images
   function loadArticles(sectionURL) {
     $.ajax({
-      method: "get",
+      method: 'get',
       url: sectionURL
     })
       .done(function(data) {
-        console.log(data);
+        //console.log(data);
         results = data.results;
         numberOfArticles = 0;
-        for (var i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) {
           let article = results[i];
-          if (article.multimedia[4] != undefined && numberOfArticles < 12) {
+          if (article.multimedia[4] !== undefined && numberOfArticles < 12) {
             numberOfArticles++;
-            $(".content-grid").append(
+            $('.content-grid').append(
               `<a href="
                 ${
                   article.url
                 }"><div class="content-cell" id="content-cell-${i}" style="background: url(${
-                value.multimedia[4].url
+                results.multimedia[4].url
               })"><div class="text-box"><p>${
                 article.abstract
-              }</p></div></div></a>`
+              }</p></div></div></a>` //fhhgh
             );
 
             $(`#content-cell-${i}`).hover(function() {
-              //speek(article.abstract);
+              speek(article.abstract);
             });
           }
         }
-        $(".content-cell").css({
-          "background-size": "cover",
-          height: "300px",
-          display: "none",
-          "align-items": "flex-end"
+        $('.content-cell').css({
+          'background-size': 'cover',
+          height: '300px',
+          display: 'none',
+          'align-items': 'flex-end'
         });
-        $(".content-cell").css({
-          display: "flex"
+        $('.content-cell').css({
+          display: 'flex'
         });
       })
       .fail(function() {
-        console.log("fail");
+        //console.log('fail');
       })
       .always(function() {
-        $(".loading").hide();
+        $('.loading').hide();
       });
   }
 
   const msg = new SpeechSynthesisUtterance();
   const voices = window.speechSynthesis.getVoices();
-  let language = "en-US";
+  let language = 'en-US';
 
   function speek(message) {
     msg.voice = voices[10];
-    msg.voiceURI = "native";
+    msg.voiceURI = 'native';
     msg.volume = 0.5; // 0 to 1
     msg.rate = 0.9; // 0.1 to 10
     msg.pitch = 1.8; //0 to 2

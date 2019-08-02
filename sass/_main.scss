@@ -44,6 +44,11 @@ html {
   display: grid;
   grid-template-columns: auto;
   background-color: $background-color;
+  position: absolute;
+  top: 369px;
+  &--active {
+    top: 100px;
+  }
 }
 .content-cell {
   transition: 0.1s all ease-in-out;
