@@ -32,7 +32,7 @@ $(function() {
   ];
 
   for (var i = 0; i < sections.length; i++) {
-    $(".dropdown").append("<option>" + sections[i].name + "</option>");
+    $(".dropdown").append(`<option>${sections[i].name}</option>`);
   }
 
   //Create object for each language
@@ -49,9 +49,7 @@ $(function() {
 
   //Set dropdown options to have the name of each language
   for (var i = 0; i < languagesMap.length; i++) {
-    $(".language-dropdown").append(
-      "<option>" + languagesMap[i].name + "</option>"
-    );
+    $(".language-dropdown").append(`<option>${languagesMap[i].name}</option>`);
   }
 
   //Check language names for a match to set code
@@ -76,11 +74,8 @@ $(function() {
         selected = sections[i].code;
       }
     }
-    let sectionURL =
-      "https://api.nytimes.com/svc/topstories/v2/" +
-      selected +
-      ".json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p";
-    loadArticles(sectionURL);
+    let sectionURL = `https://api.nytimes.com/svc/topstories/v2/"${selected}.json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p";
+    loadArticles(sectionURL)`;
   });
 
   //Create grid-cells to hold articles, then format them with .css
@@ -99,19 +94,16 @@ $(function() {
           if (article.multimedia[4] != undefined && numberOfArticles < 12) {
             numberOfArticles++;
             $(".content-grid").append(
-              `<a href="` +
-                article.url +
-                `"><div class="content-cell" id="content-cell-` +
-                i +
-                `"><div class="text-box"><p>` +
-                article.abstract +
-                `</p></div></div></a>`
+              `<a href="
+                ${
+                  article.url
+                }"><div class="content-cell" id="content-cell-${i}" style="background: url(${
+                value.multimedia[4].url
+              })"><div class="text-box"><p>${
+                article.abstract
+              }</p></div></div></a>`
             );
 
-            //Make css changes to specific grid cell (image)
-            $(`#content-cell-{i}`).css({
-              background: `url(${article.multimedia[4].url})`
-            });
             $(`#content-cell-${i}`).hover(function() {
               //speek(article.abstract);
             });
