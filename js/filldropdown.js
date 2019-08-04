@@ -25,7 +25,6 @@ $(function() {
     { name: 'Sunday Review', code: 'sundayreview' },
     { name: 'Technology', code: 'technology' },
     { name: 'Theater', code: 'theater' },
-    { name: 'Magazine', code: 'tmagazine' },
     { name: 'Travel', code: 'travel' },
     { name: 'Upshot', code: 'upshot' },
     { name: 'World', code: 'world' }
@@ -66,6 +65,8 @@ $(function() {
     $('.content-grid').empty();
     $('.loading').show();
     $('.dropdown-area').addClass('dropdown-area--active');
+    $('.footer-bumper').addClass('footer-bumper--active');
+    $('.dropdown-div').addClass('dropdown-div--active');
     $('.logo').addClass('logo--active');
 
     let selected = $(this).val();
@@ -75,7 +76,7 @@ $(function() {
       }
     }
     loadArticles(
-      `https://api.nytimes.com/svc/topstories/v2/"${selected}.json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p`
+      `https://api.nytimes.com/svc/topstories/v2/${selected}.json?api-key=9A0091nJwReeB9Uk3aD0VFbax9hwrv6p`
     );
   });
 
@@ -87,7 +88,6 @@ $(function() {
       url: sectionURL
     })
       .done(function(data) {
-        //console.log(data);
         results = data.results;
         numberOfArticles = 0;
         for (let i = 0; i < results.length; i++) {
@@ -95,18 +95,17 @@ $(function() {
           if (article.multimedia[4] !== undefined && numberOfArticles < 12) {
             numberOfArticles++;
             $('.content-grid').append(
-              `<a href="
-                ${
-                  article.url
-                }"><div class="content-cell" id="content-cell-${i}" style="background: url(${
-                results.multimedia[4].url
+              `<a href='${
+                article.url
+              }'><div class="content-cell" id="content-cell-${i}" style="background: url(${
+                article.multimedia[4].url
               })"><div class="text-box"><p>${
                 article.abstract
-              }</p></div></div></a>` //fhhgh
+              }</p></div></div></a>`
             );
 
             $(`#content-cell-${i}`).hover(function() {
-              speek(article.abstract);
+              //`speek(article.abstract);
             });
           }
         }
