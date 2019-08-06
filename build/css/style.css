@@ -68,6 +68,9 @@ html {
 
 .language-dropdown-div {
   display: none; }
+  @media (min-width: 1000px) {
+    .language-dropdown-div {
+      display: block; } }
 
 .dropdown-div {
   -webkit-box-align: center;
@@ -80,14 +83,29 @@ html {
   .dropdown-div--active {
     position: absolute;
     top: 80px; }
+    @media (min-width: 600px) {
+      .dropdown-div--active {
+        position: relative;
+        top: auto; } }
 
 .footer-bumper {
   height: 170px; }
+  @media (min-width: 600px) {
+    .footer-bumper {
+      height: 300px; } }
+  @media (min-width: 1000px) {
+    .footer-bumper {
+      height: 200px; } }
   .footer-bumper--active {
     height: 0px; }
 
 footer {
   color: #c2c2c2; }
+  @media (min-width: 1000px) {
+    footer {
+      width: 300px;
+      padding-top: 50px;
+      height: 300px; } }
 
 label {
   font-size: 0.9rem; }
@@ -104,6 +122,22 @@ label {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column; }
+  @media (min-width: 600px) {
+    .dropdown-area {
+      padding-top: 200px;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center; } }
+  @media (min-width: 1000px) {
+    .dropdown-area {
+      width: 500px; } }
   .dropdown-area .logo {
     -webkit-transform-origin: top;
             transform-origin: top;
@@ -111,6 +145,10 @@ label {
     transition: 0.3s all ease-in-out;
     scale: 1;
     padding: 70px 0px 10px 0px; }
+    @media (min-width: 600px) {
+      .dropdown-area .logo {
+        -webkit-transform-origin: 0 0;
+                transform-origin: 0 0; } }
   .dropdown-area--active {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -121,6 +159,19 @@ label {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center; }
+    @media (min-width: 600px) {
+      .dropdown-area--active {
+        width: auto;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        max-height: 90px;
+        padding-top: 0px;
+        width: 200px; } }
+    @media (min-width: 1000px) {
+      .dropdown-area--active {
+        width: 350px; } }
     .dropdown-area--active .logo {
       top: 0px;
       width: 100%;
@@ -128,6 +179,11 @@ label {
       -webkit-transform: scale(0.2);
               transform: scale(0.2);
       padding: 10px; }
+      @media (min-width: 600px) {
+        .dropdown-area--active .logo {
+          -webkit-transform-origin: center;
+                  transform-origin: center;
+          height: auto; } }
 
 .dropdowns {
   margin: 10px;
@@ -140,6 +196,12 @@ label {
   display: grid;
   grid-template-columns: auto;
   background-color: #000; }
+  @media (min-width: 600px) {
+    .content-grid {
+      grid-template-columns: 1fr 1fr 1fr; } }
+  @media (min-width: 1000px) {
+    .content-grid {
+      grid-template-columns: 1fr 1fr 1fr 1fr; } }
 
 .content-cell {
   -webkit-transition: 0.1s all ease-in-out;
@@ -156,21 +218,28 @@ label {
   .content-cell:hover {
     -o-object-position: 100% 100%;
        object-position: 100% 100%; }
-
-.text-box {
-  background: rgba(0, 0, 0, 0.5);
-  text-align: left;
-  height: 35%;
-  opacity: 1;
-  -webkit-transition: 1s all;
-  transition: 1s all;
-  width: 100%; }
-  .text-box p {
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: wrap;
-    overflow: hidden;
-    margin: 10px; }
+  .content-cell .text-box {
+    background: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    height: 35%;
+    opacity: 1;
+    -webkit-transition: 1s all;
+    transition: 1s all;
+    width: 100%; }
+    .content-cell .text-box p {
+      text-overflow: ellipsis;
+      /* Required for text-overflow to do anything */
+      white-space: wrap;
+      overflow: hidden;
+      margin: 10px; }
+    @media (min-width: 1000px) {
+      .content-cell .text-box {
+        opacity: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px; } }
 
 a {
   text-decoration: none;
@@ -190,27 +259,3 @@ a {
     display: flex;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px; }
-
-/*Desktop Width*/
-@media screen and (min-width: 600px) {
-  .content-grid {
-    grid-template-columns: 1fr 1fr 1fr; }
-  .text-box {
-    opacity: 0; }
-  .content-cell:hover .text-box {
-    opacity: 1;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px; }
-  .language-dropdown-div {
-    display: block; }
-  .dropdown-area .logo {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0; }
-  .dropdown-area--active {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row; } }

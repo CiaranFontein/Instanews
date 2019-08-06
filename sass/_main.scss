@@ -14,6 +14,9 @@ html {
 
 .language-dropdown-div {
   display: none;
+  @include desktop() {
+    display: block;
+  }
 }
 
 .dropdown-div {
@@ -23,12 +26,22 @@ html {
   &--active {
     position: absolute;
     top: 80px;
+    @include tablet() {
+      position: relative;
+      top: auto;
+    }
   }
 }
 
 //Pushes the footer down before animation
 .footer-bumper {
   height: 170px;
+  @include tablet() {
+    height: 300px;
+  }
+  @include desktop {
+    height: 200px;
+  }
   &--active {
     height: 0px;
   }
@@ -36,6 +49,11 @@ html {
 
 footer {
   color: $footer-text-color;
+  @include desktop {
+    width: 300px;
+    padding-top: 50px;
+    height: 300px;
+  }
 }
 
 label {
@@ -48,23 +66,50 @@ label {
   max-width: 100000px;
   display: flex;
   flex-direction: column;
+  @include tablet() {
+    padding-top: 200px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  @include desktop() {
+    width: 500px;
+  }
   .logo {
     transform-origin: top;
     transition: 0.3s all ease-in-out;
     scale: 1;
     padding: 70px 0px 10px 0px;
+    @include tablet() {
+      transform-origin: 0 0;
+    }
   }
   &--active {
     flex-direction: column;
     max-height: 145px;
     max-width: 100%;
     align-items: center;
+    @include tablet {
+      width: auto;
+      flex-direction: row;
+      max-height: 90px;
+      padding-top: 0px;
+      width: 200px;
+    }
+    @include desktop() {
+      width: 350px;
+    }
+
     .logo {
       top: 0px;
       width: 100%;
       color: black;
       transform: scale(0.2);
       padding: 10px;
+      @include tablet() {
+        transform-origin: center;
+        height: auto;
+      }
     }
   }
 }
@@ -81,6 +126,12 @@ label {
   display: grid;
   grid-template-columns: auto;
   background-color: $background-color;
+  @include tablet {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @include desktop {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
 .content-cell {
   transition: 0.1s all ease-in-out;
@@ -92,20 +143,26 @@ label {
   &:hover {
     object-position: 100% 100%;
   }
-}
-.text-box {
-  background: $text-background-transparency;
-  text-align: left;
-  height: 35%;
-  opacity: 1;
-  transition: 1s all;
-  width: 100%;
-  p {
-    text-overflow: ellipsis;
-    /* Required for text-overflow to do anything */
-    white-space: wrap;
-    overflow: hidden;
-    margin: 10px;
+  .text-box {
+    background: $text-background-transparency;
+    text-align: left;
+    height: 35%;
+    opacity: 1;
+    transition: 1s all;
+    width: 100%;
+    p {
+      text-overflow: ellipsis;
+      /* Required for text-overflow to do anything */
+      white-space: wrap;
+      overflow: hidden;
+      margin: 10px;
+    }
+    @include desktop {
+      opacity: 0;
+      display: flex;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
   }
 }
 
@@ -124,41 +181,5 @@ a {
     display: flex;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-  }
-}
-
-/*Desktop Width*/
-@media screen and (min-width: 600px) {
-  .content-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .text-box {
-    opacity: 0;
-  }
-  .content-cell:hover {
-    .text-box {
-      opacity: 1;
-      display: flex;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
-  }
-  .language-dropdown-div {
-    display: block;
-  }
-
-  .dropdown-area {
-    .logo {
-      transform-origin: 0 0;
-    }
-    &--active {
-      flex-direction: row;
-    }
-  }
-}
-
-@mixin desktop {
-  @media (min-width: $desktop-width) {
-    @content;
   }
 }
