@@ -105,7 +105,7 @@ $(function() {
             );
 
             $(`#content-cell-${i}`).hover(function() {
-              //`speek(article.abstract);
+              speek(article.abstract);
             });
           }
         }
