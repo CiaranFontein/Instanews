@@ -41,11 +41,11 @@ html {
   height: 170px;
 
   @include tablet() {
-    height: 200px;
+    height: 300px;
   }
 
   @include desktop {
-    height: 100px;
+    height: 200px;
   }
 
   &--active {

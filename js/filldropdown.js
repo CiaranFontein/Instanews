@@ -95,13 +95,7 @@ $(function() {
           if (article.multimedia[4] !== undefined && numberOfArticles < 12) {
             numberOfArticles++;
             $('.content-grid').append(
-              `<a href='${
-                article.url
-              }'><div class="content-cell" id="content-cell-${i}" style="background: url(${
-                article.multimedia[4].url
-              })"><div class="text-box"><p>${
-                article.abstract
-              }</p></div></div></a>`
+              `<a href='${article.url}'><div class="content-cell" id="content-cell-${i}" style="background: url(${article.multimedia[4].url})"><div class="text-box"><p>${article.abstract}</p></div></div></a>`
             );
 
             $(`#content-cell-${i}`).hover(function() {
@@ -119,9 +113,7 @@ $(function() {
           display: 'flex'
         });
       })
-      .fail(function() {
-        //console.log('fail');
-      })
+      .fail(function() {})
       .always(function() {
         $('.loading').hide();
       });
